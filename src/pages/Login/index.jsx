@@ -1,4 +1,5 @@
 import { Container, ContainerForm } from './style'
+import { Link } from 'react-router-dom'
 
 export function Login() {
   return (
@@ -16,7 +17,7 @@ export function Login() {
         <button type="submit">Entrar</button>
       </ContainerForm>
 
-      <a href="/registro">Registrar-se</a>
+      <Link to="/registro">Registrar-se</Link>
     </Container>
   )
 }
