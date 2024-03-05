@@ -23,15 +23,12 @@ export function Login() {
   }
 
   const onSubmit = () => {
-    console.log(dataForm)
-    console.log('entrei no clique')
     axios
       .get(`/users/${dataForm.email}`, {
         email: dataForm.email,
         password: dataForm.password,
       })
       .then(({ data }) => {
-        console.log(data)
         if (dataForm.email === data.user.email) {
           showSuccessToast('Login realizado com sucesso')
 

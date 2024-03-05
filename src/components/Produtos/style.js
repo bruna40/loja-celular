@@ -1,30 +1,18 @@
 import styled from 'styled-components'
-// import { fonts } from '../../styles/typography'
 
-export const Container = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  ul {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-      border: 1px solid #000;
-      width: 200px;
-      height: 200px;
-      text-align: center;
-    }
+export const Container = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  th {
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  button {
+    margin-right: 5px;
   }
 `
