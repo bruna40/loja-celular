@@ -7,7 +7,7 @@ import {
   showSuccessToast,
   showErrorToast,
 } from '../../utils/toast-notification'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function Registro() {
   const {
@@ -15,8 +15,8 @@ export function Registro() {
 
     formState: { errors },
   } = useForm()
+  const navigate = useNavigate()
 
-  const router = useNavigate()
   const handleChange = (fieldName, value) => {
     setDataForm((prevData) => ({
       ...prevData,
@@ -37,13 +37,14 @@ export function Registro() {
         password: dataForm.password,
       })
       .then(() => {
+        console.log('Success')
         setDataForm({
           name: '',
           email: '',
           password: '',
         })
         showSuccessToast('Cadastro realizado com sucesso')
-        router.push('/')
+        navigate('/')
       })
       .catch((error) => {
         showErrorToast('Ops alguma coisa deu errado, email já cadastrado !')
@@ -90,7 +91,7 @@ export function Registro() {
             onChange={(e) => handleChange('password', e.target.value)}
           />
         </label>
-        <button type="submit">Cadastrar</button>
+        <button>Cadastrar</button>
       </ContainerForm>
       <ToastNotification />
       <Link to="/">Login</Link>

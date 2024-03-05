@@ -7,7 +7,7 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/registro-produto" element={<RegistroProduto />} />
+      <Route path="/produto/:userId" element={<RegistroProduto />} />
       <Route path="/registro" element={<Registro />} />
     </Routes>
   )
