@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Login } from './pages/Login'
-import { Registro } from './pages/Registro'
-import { RegistroProduto } from './pages/RegistoProduto'
+import { Registro } from './pages/RegisterUser'
+import { RegistroProduto } from './pages/RegisterProduct'
 
 export function Router() {
   return (

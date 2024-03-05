@@ -4,7 +4,7 @@ import axios from '../../api/axios'
 
 export function Produtos({ idProduct }) {
   const [products, setProducts] = useState([])
-  const [editProduct, setEditProduct] = useState(null) // Armazena o ID do produto em edição
+  const [editProduct, setEditProduct] = useState(null)
   const [editedProduct, setEditedProduct] = useState({
     name: '',
     brand: '',
@@ -46,8 +46,12 @@ export function Produtos({ idProduct }) {
   }
 
   const handleSaveEdit = () => {
+    const productData = {
+      ...editedProduct,
+      price: parseFloat(editedProduct.price),
+    }
     axios
-      .put(`/products/${editProduct}`, editedProduct)
+      .put(`/products/${editProduct}`, productData)
       .then(() => {
         setProducts((prevProducts) =>
           prevProducts.map((product) =>
@@ -144,7 +148,8 @@ export function Produtos({ idProduct }) {
               <td>
                 {editProduct === product.id ? (
                   <input
-                    type="text"
+                    type="number"
+                    step="0.01"
                     name="price"
                     value={editedProduct.price}
                     onChange={handleInputChange}
