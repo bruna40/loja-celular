@@ -1,7 +1,13 @@
 import { Container, ContainerForm } from './style'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export function Login() {
+  const [dataForm, setDataForm] = useState({
+    email: '',
+    password: '',
+  })
+
   return (
     <Container>
       <h1>Login</h1>
