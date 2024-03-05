@@ -38,7 +38,6 @@ export function RegistroProduto() {
         color: '',
         userId,
       })
-      window.location.reload()
     })
   }
 
