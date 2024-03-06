@@ -14,7 +14,6 @@ export function Login() {
     password: '',
   })
   const navigate = useNavigate()
-
   const handleChange = (fieldName, value) => {
     setDataForm((prevData) => ({
       ...prevData,
@@ -24,20 +23,20 @@ export function Login() {
 
   const onSubmit = () => {
     axios
-      .get(`/users/${dataForm.email}`, {
+      .post('/auth/login', {
         email: dataForm.email,
         password: dataForm.password,
       })
       .then(({ data }) => {
-        if (dataForm.email === data.user.email) {
-          showSuccessToast('Login realizado com sucesso')
-
-          navigate(`/produto/${data.user.id}`)
-        } else {
-          showErrorToast('Ops alguma coisa deu errado, email não cadastrado !')
-        }
+        showSuccessToast('Login realizado com sucesso')
+        const tokenHttp = `Bearer ${data.acessToken}`
+        localStorage.setItem('acessToken', tokenHttp)
+        navigate(`/produto/${tokenHttp}`)
       })
       .catch((error) => {
+        showErrorToast(
+          'Ops! Alguma coisa deu errado. Verifique seu email ou senha.',
+        )
         console.error(error)
       })
   }

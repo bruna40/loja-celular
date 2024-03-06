@@ -1,12 +1,33 @@
-import { Produtos } from '../../components/Produtos'
 import { Container, ContainerRegistro } from './style'
-import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { Produtos } from '../../components/Produtos'
+import { useState, useEffect } from 'react'
 import axios from '../../api/axios'
 import { useForm } from 'react-hook-form'
 
 export function RegistroProduto() {
-  const { userId } = useParams()
+  const [userId, setUserId] = useState('')
+  const localStorageToken = localStorage.getItem('acessToken')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: localStorageToken,
+          },
+        }
+
+        const response = await axios.get('/users', config)
+        const fetchedUserId = response.data.user[0].id
+        setUserId(fetchedUserId)
+      } catch (error) {
+        console.error('Erro ao obter o ID do usuário:', error)
+      }
+    }
+
+    fetchData()
+  }, [localStorageToken])
+
   const [dataFormProduct, setDataFormProduct] = useState({
     name: '',
     brand: '',
@@ -27,18 +48,24 @@ export function RegistroProduto() {
   const onCreate = () => {
     const productData = {
       ...dataFormProduct,
+      userId,
       price: parseFloat(dataFormProduct.price),
     }
-    axios.post(`/products`, productData).then(() => {
-      setDataFormProduct({
-        name: '',
-        brand: '',
-        model: '',
-        price: '',
-        color: '',
-        userId,
+
+    axios
+      .post(`/products`, productData)
+      .then(() => {
+        setDataFormProduct({
+          name: '',
+          brand: '',
+          model: '',
+          price: '',
+          color: '',
+        })
       })
-    })
+      .catch((error) => {
+        console.error('Erro ao cadastrar produto:', error)
+      })
   }
 
   return (
