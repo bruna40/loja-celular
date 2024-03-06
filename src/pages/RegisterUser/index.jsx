@@ -10,11 +10,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 
 export function Registro() {
-  const {
-    handleSubmit,
-
-    formState: { errors },
-  } = useForm()
+  const { handleSubmit } = useForm()
   const navigate = useNavigate()
 
   const handleChange = (fieldName, value) => {
@@ -57,7 +53,6 @@ export function Registro() {
       <h1>Registro</h1>
       <ContainerForm onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
-          Nome
           <input
             type="text"
             placeholder="Nome"
@@ -66,13 +61,8 @@ export function Registro() {
             onChange={(e) => handleChange('name', e.target.value)}
           />
         </label>
-        {errors.name && errors.name.type === 'pattern' && (
-          <p className="text-center text-xs font-bold text-red-600">
-            Nome inválido
-          </p>
-        )}
+
         <label htmlFor="email">
-          Email
           <input
             type="text"
             placeholder="Email"
@@ -82,7 +72,6 @@ export function Registro() {
           />
         </label>
         <label htmlFor="password">
-          Senha
           <input
             type="password"
             placeholder="Senha"
@@ -94,7 +83,9 @@ export function Registro() {
         <button>Cadastrar</button>
       </ContainerForm>
       <ToastNotification />
-      <Link to="/">Login</Link>
+      <span>
+        Já possui login? <Link to="/">Login</Link>
+      </span>
     </Container>
   )
 }
