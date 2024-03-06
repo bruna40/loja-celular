@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Container } from './style'
+import { useState, useEffect } from 'react'
+import { Container, Section, SectionDiv } from './style'
 import axios from '../../api/axios'
+import { Trash, SquarePen, Save, XCircle } from 'lucide-react'
 
 export function Produtos({ idProduct }) {
   const [products, setProducts] = useState([])
@@ -85,16 +86,16 @@ export function Produtos({ idProduct }) {
   )
 
   return (
-    <section>
-      <h1>Produtos</h1>
-      <div>
+    <Section>
+      <h2>Produtos</h2>
+      <SectionDiv>
         <input
           type="text"
           placeholder="Pesquisar pelo nome do produto"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
+      </SectionDiv>
       <Container>
         <thead>
           <tr>
@@ -173,24 +174,26 @@ export function Produtos({ idProduct }) {
               <td>
                 {editProduct === product.id ? (
                   <>
-                    <button onClick={handleSaveEdit}>Salvar</button>
+                    <button onClick={handleSaveEdit}>
+                      <Save size={20} />
+                    </button>
                     <button onClick={() => setEditProduct(null)}>
-                      Cancelar
+                      <XCircle size={20} />
                     </button>
                   </>
                 ) : (
                   <button onClick={() => handleEditProduct(product.id)}>
-                    Editar
+                    <SquarePen size={20} />
                   </button>
                 )}
                 <button onClick={() => handleDeleteProduct(product.id)}>
-                  Deletar
+                  <Trash size={20} />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </Container>
-    </section>
+    </Section>
   )
 }

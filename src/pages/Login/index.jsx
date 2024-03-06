@@ -47,7 +47,6 @@ export function Login() {
       <h1>Login</h1>
       <ContainerForm>
         <label htmlFor="email">
-          Email
           <input
             type="text"
             placeholder="Email"
@@ -57,7 +56,6 @@ export function Login() {
           />
         </label>
         <label htmlFor="password">
-          Senha
           <input
             type="password"
             placeholder="Senha"
@@ -70,8 +68,10 @@ export function Login() {
           Entrar
         </button>
       </ContainerForm>
+      <span>
+        Ainda não se inscreveu? <Link to="/registro">Inscreva-se</Link>
+      </span>
 
-      <Link to="/registro">Registrar-se</Link>
       <ToastNotification />
     </Container>
   )

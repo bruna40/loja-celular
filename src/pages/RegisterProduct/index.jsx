@@ -48,7 +48,7 @@ export function RegistroProduto() {
       </header>
       <main>
         <ContainerRegistro>
-          <h1>Registro de Produto</h1>
+          <h2>Registro de Produto</h2>
           <form onSubmit={handleSubmit(onCreate)}>
             <label htmlFor="name">
               Nome

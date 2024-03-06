@@ -1,8 +1,51 @@
-# React + Vite
+# Cadastro de Celular
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sumário
+- [Descrição](#descrição)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Instalação](#instalação)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Descrição
+O projeto consiste em um sistema de cadastro de pessoa, onde pode ser cadastrado nome, email e senha de pessoa.O sistema tambem possui sistema de login, onde pessoa pode logar e ver os celulares cadastrados e pode cadastrar celular e editar e deletar os celulares cadastrados.
+
+## Funcionalidades
+- Cadastro de pessoa
+- Cadastro de celular
+- Login de pessoa
+- Listagem de Celular
+- Editar Celular
+- Deletar Celular
+
+## Tecnologias
+- React
+- JavaScript
+- Styled-Components
+- Axios
+
+## Instalação
+
+1. Clone este repositório:
+
+    ```bash
+    git clone https://github.com/bruna40/back-loja-celular.git
+    ```
+
+2. Navegue até o diretório do projeto:
+
+    ```bash
+    cd loja-celular
+    ```
+
+3. Instale as dependências:
+
+    ```bash
+    npm install
+    ```
+
+4. Inicie o servidor:
+
+    ```bash
+    npm run dev
+    ```

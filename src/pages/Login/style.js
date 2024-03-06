@@ -1,18 +1,19 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex: 1;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   height: 100vh;
-  gap: 1rem;
-  a {
-    margin-top: 2rem;
-    text-decoration: none;
-    color: #000;
-    font-size: 2rem;
-  }
+  gap: 0.5rem;
+  color: ${({ theme }) => theme['gray-100']};
+
+  font-size: 1.125rem;
+  font-weight: bold;
+  flex-wrap: wrap;
 `
 
 export const ContainerForm = styled.form`
@@ -20,6 +21,10 @@ export const ContainerForm = styled.form`
   flex-direction: column;
   gap: 1rem;
   width: 40rem;
+  padding: 2rem;
+  display: flex;
+
+  gap: 3.5rem;
 
   label {
     display: flex;
@@ -27,15 +32,41 @@ export const ContainerForm = styled.form`
     gap: 0.5rem;
 
     input {
-      padding: 0.5rem;
-      border: 1px solid #000;
-      border-radius: 0.25rem;
+      background: transparent;
+      height: 2.5rem;
+      border: 0;
+      border-bottom: 2px solid ${(promps) => promps.theme['gray-500']};
+      font-weight: bold;
+      font-size: 1.125rem;
+      padding: 0 0.5rem;
+      color: ${(promps) => promps.theme['gray-100']};
+
+      &:focus {
+        box-shadow: none;
+        border-color: ${(promps) => promps.theme['green-500']};
+      }
+
+      &::placeholder {
+        color: ${(promps) => promps.theme['gray-500']};
+      }
     }
   }
 
   button {
-    padding: 0.5rem;
-    border: 1px solid #000;
-    border-radius: 0.25rem;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5rem;
+    font-weight: bold;
+    background-color: ${({ theme }) => theme['gray-300']};
+    color: ${({ theme }) => theme['gray-700']};
+
+    cursor: pointer;
   }
 `
