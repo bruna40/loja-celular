@@ -33,7 +33,6 @@ export function Registro() {
         password: dataForm.password,
       })
       .then(() => {
-        console.log('Success')
         setDataForm({
           name: '',
           email: '',

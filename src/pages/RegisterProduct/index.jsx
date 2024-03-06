@@ -3,10 +3,32 @@ import { Produtos } from '../../components/Produtos'
 import { useState, useEffect } from 'react'
 import axios from '../../api/axios'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 export function RegistroProduto() {
   const [userId, setUserId] = useState('')
   const localStorageToken = localStorage.getItem('acessToken')
+
+  const tokenWithoutBearer = localStorageToken
+    ? localStorageToken.replace('Bearer ', '')
+    : ''
+
+  const navigate = useNavigate()
+
+  function decodeJWT(token) {
+    if (!token) {
+      console.error('Token is empty or null.')
+      return null
+    }
+
+    const [, payload] = token.split('.')
+
+    const decodedPayload = JSON.parse(atob(payload))
+
+    const userId = decodedPayload.id
+
+    return userId
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +40,12 @@ export function RegistroProduto() {
         }
 
         const response = await axios.get('/users', config)
-        const fetchedUserId = response.data.user[0].id
+        const tokenDecoded = decodeJWT(tokenWithoutBearer)
+
+        const fetchedUserId = response.data.user.find(
+          (user) => user.id === tokenDecoded,
+        )
+
         setUserId(fetchedUserId)
       } catch (error) {
         console.error('Erro ao obter o ID do usuário:', error)
@@ -34,7 +61,7 @@ export function RegistroProduto() {
     model: '',
     price: '',
     color: '',
-    userId,
+    userId: userId.id,
   })
 
   const { handleSubmit } = useForm()
@@ -48,7 +75,7 @@ export function RegistroProduto() {
   const onCreate = () => {
     const productData = {
       ...dataFormProduct,
-      userId,
+      userId: userId.id,
       price: parseFloat(dataFormProduct.price),
     }
 
@@ -67,11 +94,17 @@ export function RegistroProduto() {
         console.error('Erro ao cadastrar produto:', error)
       })
   }
-
+  const onLogout = () => {
+    localStorage.removeItem('acessToken')
+    navigate('/')
+  }
   return (
     <Container>
       <header>
         <h1>Bem-vindo ao cadastro de Celular</h1>
+        <button type="button" onClick={onLogout}>
+          Logout
+        </button>
       </header>
       <main>
         <ContainerRegistro>
@@ -126,7 +159,7 @@ export function RegistroProduto() {
             <button type="submit">Cadastrar</button>
           </form>
         </ContainerRegistro>
-        <Produtos idProduct={userId} />
+        <Produtos idProduct={userId.id} />
       </main>
     </Container>
   )
