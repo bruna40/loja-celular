@@ -8,8 +8,16 @@ import {
   showErrorToast,
 } from '../../utils/toast-notification'
 import { Link, useNavigate } from 'react-router-dom'
+import { InputPassword } from '../../components/InputPassword'
 
 export function Registro() {
+  const [dataForm, setDataForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
   const { handleSubmit } = useForm()
   const navigate = useNavigate()
 
@@ -19,13 +27,12 @@ export function Registro() {
       [fieldName]: value,
     }))
   }
-  const [dataForm, setDataForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
 
   const onSubmit = () => {
+    if (dataForm.password !== dataForm.confirmPassword) {
+      showErrorToast('As senhas devem ser idênticas')
+      return
+    }
     axios
       .post('/users', {
         name: dataForm.name,
@@ -70,15 +77,20 @@ export function Registro() {
             onChange={(e) => handleChange('email', e.target.value)}
           />
         </label>
-        <label htmlFor="password">
-          <input
-            type="password"
-            placeholder="Senha"
-            id="password"
-            value={dataForm.password}
-            onChange={(e) => handleChange('password', e.target.value)}
-          />
-        </label>
+        <InputPassword
+          value={dataForm.password || ''}
+          onChange={(e) => handleChange('password', e.target.value)}
+          placeholder="Senha"
+          htmlFor="password"
+          id="password"
+        />
+        <InputPassword
+          value={dataForm.confirmPassword || ''}
+          onChange={(e) => handleChange('confirmPassword', e.target.value)}
+          placeholder="Confirme a senha"
+          htmlFor="confirmPassword"
+          id="confirmPassword"
+        />
         <button>Cadastrar</button>
       </ContainerForm>
       <ToastNotification />
