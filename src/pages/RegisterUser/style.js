@@ -1,50 +1,54 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex: 1;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100vh;
-  gap: 1rem;
+  gap: 0.5rem;
+  color: ${({ theme }) => theme['gray-100']};
 
-  span {
-    font-size: 1.5rem;
-  }
+  font-size: 1.125rem;
+  font-weight: bold;
 `
+
 export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 40rem;
+  width: 100%;
   padding: 2rem;
-  display: flex;
-
-  gap: 3.5rem;
+  @media (min-width: 40em) {
+    width: 50%;
+  }
 
   label {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
 
-    input {
-      background: transparent;
-      height: 2.5rem;
-      border: 0;
-      border-bottom: 2px solid ${({ theme }) => theme['gray-500']};
-      font-weight: bold;
-      font-size: 1.125rem;
-      padding: 0 0.5rem;
-      color: ${({ theme }) => theme['gray-100']};
+  input {
+    background: transparent;
+    height: 2.5rem;
+    border: 0;
+    border-bottom: 2px solid ${({ theme }) => theme['gray-500']};
+    font-weight: bold;
+    font-size: 1.125rem;
+    padding: 0 0.5rem;
+    color: ${({ theme }) => theme['gray-100']};
 
-      &:focus {
-        box-shadow: none;
-        border-color: ${({ theme }) => theme['green-500']};
-      }
+    &:focus {
+      box-shadow: none;
+      border-color: ${({ theme }) => theme['green-500']};
+    }
 
-      &::placeholder {
-        color: ${({ theme }) => theme['gray-500']};
-      }
+    &::placeholder {
+      color: ${({ theme }) => theme['gray-500']};
     }
   }
 
@@ -64,5 +68,17 @@ export const ContainerForm = styled.form`
     color: ${({ theme }) => theme['gray-700']};
 
     cursor: pointer;
+  }
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `

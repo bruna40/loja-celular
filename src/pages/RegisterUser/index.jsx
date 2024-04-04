@@ -9,6 +9,7 @@ import {
 } from '../../utils/toast-notification'
 import { Link, useNavigate } from 'react-router-dom'
 import { InputPassword } from '../../components/InputPassword'
+import { FaSpinner } from 'react-icons/fa'
 
 export function Registro() {
   const [dataForm, setDataForm] = useState({
@@ -17,6 +18,7 @@ export function Registro() {
     password: '',
     confirmPassword: '',
   })
+  const [submitting, setSubmitting] = useState(false)
 
   const { handleSubmit } = useForm()
   const navigate = useNavigate()
@@ -29,6 +31,7 @@ export function Registro() {
   }
 
   const onSubmit = () => {
+    setSubmitting(true)
     if (dataForm.password !== dataForm.confirmPassword) {
       showErrorToast('As senhas devem ser idênticas')
       return
@@ -47,10 +50,12 @@ export function Registro() {
         })
         showSuccessToast('Cadastro realizado com sucesso')
         navigate('/')
+        setSubmitting(false)
       })
       .catch((error) => {
         showErrorToast('Ops alguma coisa deu errado, email já cadastrado !')
         console.error(error)
+        setSubmitting(false)
       })
   }
 
@@ -65,9 +70,9 @@ export function Registro() {
             id="name"
             value={dataForm.name}
             onChange={(e) => handleChange('name', e.target.value)}
+            required
           />
         </label>
-
         <label htmlFor="email">
           <input
             type="text"
@@ -75,6 +80,7 @@ export function Registro() {
             id="email"
             value={dataForm.email}
             onChange={(e) => handleChange('email', e.target.value)}
+            required
           />
         </label>
         <InputPassword
@@ -91,7 +97,9 @@ export function Registro() {
           htmlFor="confirmPassword"
           id="confirmPassword"
         />
-        <button>Cadastrar</button>
+        <button type="submit">
+          {submitting ? <FaSpinner className="spinner" /> : 'Cadastrar'}
+        </button>
       </ContainerForm>
       <ToastNotification />
       <span>

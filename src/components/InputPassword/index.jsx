@@ -22,6 +22,7 @@ export function InputPassword({
           value={value}
           onChange={onChange}
           id={id}
+          required
         />
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}

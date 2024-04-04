@@ -9,12 +9,14 @@ import {
   showSuccessToast,
 } from '../../utils/toast-notification'
 import { InputPassword } from '../../components/InputPassword'
+import { FaSpinner } from 'react-icons/fa'
 
 export function Login() {
   const [dataForm, setDataForm] = useState({
     email: '',
     password: '',
   })
+  const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
   const handleChange = (fieldName, value) => {
     setDataForm((prevData) => ({
@@ -24,6 +26,7 @@ export function Login() {
   }
 
   const onSubmit = () => {
+    setSubmitting(true)
     axios
       .post('/auth/login', {
         email: dataForm.email,
@@ -34,12 +37,14 @@ export function Login() {
         const tokenHttp = `Bearer ${data.acessToken}`
         localStorage.setItem('acessToken', tokenHttp)
         navigate(`/produto/${tokenHttp}`)
+        setSubmitting(false)
       })
       .catch((error) => {
         showErrorToast(
           'Ops! Alguma coisa deu errado. Verifique seu email ou senha.',
         )
         console.error(error)
+        setSubmitting(false)
       })
   }
 
@@ -54,6 +59,7 @@ export function Login() {
             id="email"
             value={dataForm.email}
             onChange={(e) => handleChange('email', e.target.value)}
+            required
           />
         </label>
         <InputPassword
@@ -64,7 +70,7 @@ export function Login() {
           id="password"
         />
         <button type="button" onClick={onSubmit}>
-          Entrar
+          {submitting ? <FaSpinner className="spinner" /> : 'Entrar'}
         </button>
       </ContainerForm>
       <span>
