@@ -1,6 +1,7 @@
-import { Container, ContainerForm } from './style'
+import { Container, ContainerForm, PasswordContainer } from './style'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 import axios from '../../api/axios'
 import {
   ToastNotification,
@@ -13,6 +14,7 @@ export function Login() {
     email: '',
     password: '',
   })
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   const handleChange = (fieldName, value) => {
     setDataForm((prevData) => ({
@@ -54,15 +56,23 @@ export function Login() {
             onChange={(e) => handleChange('email', e.target.value)}
           />
         </label>
-        <label htmlFor="password">
-          <input
-            type="password"
-            placeholder="Senha"
-            id="password"
-            value={dataForm.password}
-            onChange={(e) => handleChange('password', e.target.value)}
-          />
-        </label>
+        <PasswordContainer htmlFor="password">
+          <div>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Senha"
+              id="password"
+              value={dataForm.password}
+              onChange={(e) => handleChange('password', e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+            </button>
+          </div>
+        </PasswordContainer>
         <button type="button" onClick={onSubmit}>
           Entrar
         </button>
