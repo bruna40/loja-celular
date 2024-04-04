@@ -34,6 +34,7 @@ export function Registro() {
     setSubmitting(true)
     if (dataForm.password !== dataForm.confirmPassword) {
       showErrorToast('As senhas devem ser idênticas')
+      setSubmitting(false)
       return
     }
     axios

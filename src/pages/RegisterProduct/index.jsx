@@ -23,7 +23,7 @@ export function RegistroProduto() {
 
     const [, payload] = token.split('.')
 
-    const decodedPayload = JSON.parse(atob(payload))
+    const decodedPayload = JSON.parse(window.atob(payload))
 
     const userId = decodedPayload.id
 
